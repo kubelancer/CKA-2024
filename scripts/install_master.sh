@@ -33,8 +33,14 @@ echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.
 
 sudo apt-get update && sudo apt-get install -y containerd
 
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
+
 sudo sed -i 's/  SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
 
 sudo systemctl restart containerd
 sudo systemctl enable containerd
-sudo systemctl status containerd
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
