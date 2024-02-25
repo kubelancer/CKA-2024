@@ -1,3 +1,11 @@
+#/bin/bash
+#Author: Bala Subramani K
+
+###### Install- On Master and Worker Nodes #######
+
+# 1. Install CRI - ContainerD
+# 2. Install Kubernetes Compnents - Kubelet, Kubeadm, Kubectl
+
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -28,8 +36,8 @@ for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker c
 
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 sudo apt-get update && sudo apt-get install -y containerd
 
@@ -42,5 +50,9 @@ sudo systemctl restart containerd
 sudo systemctl enable containerd
 
 sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
+
+sudo apt-cache madison kubeadm | tac
+
+sudo apt-get install -y kubelet=1.28.7-1.1 kubeadm=1.28.7-1.1 kubectl=1.28.7-1.1
 sudo apt-mark hold kubelet kubeadm kubectl
+

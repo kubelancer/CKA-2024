@@ -1,4 +1,10 @@
 
+#/bin/bash
+#Author: Bala Subramani K
+
+###### Upgrade - On Master and Worker Nodes #######
+# 1. Install Kubernetes Compnents - Kubelet, Kubeadm, Kubectl
+
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
