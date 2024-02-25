@@ -1,4 +1,4 @@
 #!/bin/bash
 # Author: Bala Subramani K
 
-echo "Generating for initcontainer demo" > /usr/share/nginx/html/index.html
+echo "Hello Kubelancer!, Index Generated from initcontainer" > /usr/share/nginx/html/index.html
